@@ -23,7 +23,8 @@ spec:
       containers:
       - name: {{ galera_cluster_name }}-seed-purge-agent
         image: busybox
-        args: ["cd /target && rm -rf * && ls /target"]
+        command: ["/bin/sh"]
+        args: ["-c", "cd /target && ls -al && rm -rf * && echo 'purge complete!' && ls -al && sleep 120s"]
         
         volumeMounts:
           - name: {{ galera_cluster_name }}-galera-seed-volume
@@ -31,7 +32,8 @@ spec:
 
       - name: {{ galera_cluster_name }}-node1-purge-agent
         image: busybox
-        args: ["cd /target && rm -rf * && ls /target"]
+        command: ["/bin/sh"]
+        args: ["-c", "cd /target && ls -al && rm -rf * && echo 'purge complete!' && ls -al && sleep 120s"]
         
         volumeMounts:
           - name: {{ galera_cluster_name }}-galera-node1-volume
@@ -39,7 +41,8 @@ spec:
 
       - name: {{ galera_cluster_name }}-node2-purge-agent
         image: busybox
-        args: ["cd /target && rm -rf * && ls /target"]
+        command: ["/bin/sh"]
+        args: ["-c", "cd /target && ls -al && rm -rf * && echo 'purge complete!' && ls -al && sleep 120s"]
         
         volumeMounts:
           - name: {{ galera_cluster_name }}-galera-node2-volume
@@ -47,7 +50,8 @@ spec:
 
       - name: {{ galera_cluster_name }}-node3-purge-agent
         image: busybox
-        args: ["cd /target && rm -rf * && ls /target"]
+        command: ["/bin/sh"]
+        args: ["-c", "cd /target && ls -al && rm -rf * && echo 'purge complete!' && ls -al && sleep 120s"]
         
         volumeMounts:
           - name: {{ galera_cluster_name }}-galera-node3-volume
