@@ -143,18 +143,18 @@ To perform a restore, ensure that the restore job manifest maps to the correct v
     template:
         spec:
         volumes:
-        - name: tier1-galera-backup-volume
+        - name: <cluster name>-galera-backup-volume
             persistentVolumeClaim:
-            claimName: tier1-galera-backup-volume-claim
-        - name: tier1-galera-backup-temp-volume
+            claimName: <cluster name>-galera-backup-volume-claim
+        - name: <cluster name>-galera-backup-temp-volume
             persistentVolumeClaim:
-            claimName: tier1-galera-backup-temp-volume-claim
-        - name: tier1-galera-seed-volume
+            claimName: <cluster name>-galera-backup-temp-volume-claim
+        - name: <cluster name>-galera-seed-volume
             persistentVolumeClaim:
-            claimName: tier1-galera-seed-volume-claim
+            claimName: <cluster name>-galera-seed-volume-claim
         
         containers:
-        - name: tier1-galera-backup-agent
+        - name: <cluster name>-galera-backup-agent
             image: idstudios/mariadb-galera-backup:latest
             args: ["restore"]
             env:
@@ -164,20 +164,20 @@ To perform a restore, ensure that the restore job manifest maps to the correct v
             value: "latest"
             
             volumeMounts:
-            - name: tier1-galera-backup-volume
+            - name: <cluster name>-galera-backup-volume
                 mountPath: "/backups"
-            - name: tier1-galera-backup-temp-volume
+            - name: <cluster name>-galera-backup-temp-volume
                 mountPath: "/temp"
-            - name: tier1-galera-seed-volume
+            - name: <cluster name>-galera-seed-volume
                 mountPath: "/target"
         restartPolicy: Never
     backoffLimit: 4
 
-__tier1-galera-backup-volume__ must point to the root NFS volume that contains the backups.
+__<cluster name>-galera-backup-volume__ must point to the root NFS volume that contains the backups.
 
-__tier1-galera-backup-temp-volume__ must point to an NFS volume that contains enough space to hold the fully uncompressed backups.
+__<cluster name>-galera-backup-temp-volume__ must point to an NFS volume that contains enough space to hold the fully uncompressed backups.
 
-__tier1-galera-seed-volume__ should point to the target seed volume that will be the seed for the newly created galera cluster.
+__<cluster name>-galera-seed-volume__ should point to the target seed volume that will be the seed for the newly created galera cluster.
 
 > The __idstudios/mariadb-galera-backup:latest__ is not tied to the original cluster for __restore__, and only requires a copy of the backups.  It can even be used against non-galera MariaDB and MySQL database backups.
 
