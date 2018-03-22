@@ -205,6 +205,7 @@ __galera.conf__:
 
     [all:vars]
     galera_cluster_name=tier1
+    galera_cluster_namespace=default
     galera_cluster_docker_image=idstudios/mariadb-galera-docker:10.1
     galera_cluster_haproxy_docker_image=idstudios/mariadb-galera-haproxy:latest
     galera_cluster_backup_agent_image=idstudios/mariadb-galera-backup:latest
@@ -219,10 +220,9 @@ __galera.conf__:
     galera_cluster_backup_log_volume_size=50Gi
     galera_cluster_backup_nfs_server=192.168.100.40
     galera_cluster_backup_path="/data/shared/backups"
-    galera_cluster_backup_temp_nfs_server=192.168.100.40
-    galera_cluster_backup_temp_path="/data/shared/temp"
+    galera_cluster_backup_log_nfs_server=192.168.100.40
+    galera_cluster_backup_log_path="/data/shared/logs"
     galera_cluster_backup_retention_days=7
-    galera_cluster_backup_incremental_interval="5m"
 
     galera_cluster_node1_iscsi_targetportal="192.168.100.40:3260"
     galera_cluster_node1_iscsi_iqn="iqn.2018-04.io.idstudios:server.galera"
