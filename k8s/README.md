@@ -29,9 +29,9 @@ Add or adjust the ansible configuration file with the specifics to your environm
 
 Run the ansible playbook to generate the Kubernetes YAML deployment manifests:
 
-    $ ansible-playbook -i clusters/tier1-example/galera.conf mariadb-galera-template.yml
+    $ ansible-playbook -i clusters/my-cluster/galera.conf mariadb-galera-template.yml
 
-This will create a set of output manifest files that can then be deployed to Kubernetes.  Select either the 3 or 5 node deployment scripts depending on the size of the cluster to deploy:
+This will create a set of output manifest files in the __my-cluster__ folder that can then be deployed to Kubernetes.  Select either the 3 or 5 node deployment scripts depending on the size of the cluster to deploy:
 
 There is also two variants of deployment:
 
