@@ -195,7 +195,7 @@ The iSCSI volumes are not easily accessed directly, so the template scripts prod
 
     kubectl apply -f galera-3-volumes.yml
 
-## Ansible Galera Configuration
+## Ansible Template Based MariaDB Galera Configuration
 
 The variables tend to be self-explanatory.
 
