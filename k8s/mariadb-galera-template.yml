@@ -9,9 +9,20 @@
 
   tasks:
 
-  - set_fact: namesgalera_cluster_backup_incremental_intervalpace="15m"
+  - set_fact: galera_cluster_backup_incremental_interval="15m"
     when: galera_cluster_backup_incremental_interval is undefined
 
+  - name: Determine cluster_pkg_folder
+    set_fact:
+      cluster_pkg_folder: "{{ inventory_dir | replace(playbook_dir + '/clusters/', '') }}"
+    when: cluster_pkg_folder is undefined
+    run_once: true
+
+  - debug: var=cluster_pkg_folder
+    run_once: true
+
+  - set_fact: galera_cluster_home="clusters/{{ cluster_pkg_folder }}"
+    
   - name: Ensure the cluster folder exists
     local_action:
       module: shell
@@ -151,7 +162,7 @@
     become: false
     when: 'galera_cluster_node4_iscsi_targetportal is defined'
 
-  - name: Generate the restore to seed job manifest
+  - name: Generate the 3-Node restore to seed job manifest
     local_action:
       module: template
       src: templates/galera-restore-seed-job.j2
@@ -160,7 +171,7 @@
     run_once: true
     become: false
 
-  - name: Generate the restore to seed job manifest
+  - name: Generate the 5-node restore to seed job manifest
     local_action:
       module: template
       src: templates/galera-restore-seed-job.j2
@@ -168,4 +179,5 @@
       mode: 0766
     run_once: true
     become: false
+    when: 'galera_cluster_node4_iscsi_targetportal is defined'
     
