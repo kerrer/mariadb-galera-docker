@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: ReplicaSet
 metadata:
   name: {{ galera_cluster_name }}-galera-node1
+  namespace: {{ galera_cluster_namespace }}
   labels:
     app: {{ galera_cluster_name }}-galera-node1
 spec:
@@ -51,6 +52,7 @@ apiVersion: extensions/v1beta1
 kind: ReplicaSet
 metadata:
   name: {{ galera_cluster_name }}-galera-node2
+  namespace: {{ galera_cluster_namespace }}
   labels:
     app: {{ galera_cluster_name }}-galera-node2
 spec:
@@ -100,6 +102,7 @@ apiVersion: extensions/v1beta1
 kind: ReplicaSet
 metadata:
   name: {{ galera_cluster_name }}-galera-node3
+  namespace: {{ galera_cluster_namespace }}
   labels:
     app: {{ galera_cluster_name }}-galera-node3
 spec:
@@ -149,6 +152,7 @@ apiVersion: extensions/v1beta1
 kind: ReplicaSet
 metadata:
   name: {{ galera_cluster_name }}-galera-node4
+  namespace: {{ galera_cluster_namespace }}
   labels:
     app: {{ galera_cluster_name }}-galera-node4
 spec:
@@ -198,6 +202,7 @@ apiVersion: extensions/v1beta1
 kind: ReplicaSet
 metadata:
   name: {{ galera_cluster_name }}-galera-node5
+  namespace: {{ galera_cluster_namespace }}
   labels:
     app: {{ galera_cluster_name }}-galera-node5
 spec:
@@ -248,6 +253,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ galera_cluster_name }}-galera-node1
+  namespace: {{ galera_cluster_namespace }}
 spec:
   ports:
   - port: 3306
@@ -278,6 +284,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ galera_cluster_name }}-galera-node2
+  namespace: {{ galera_cluster_namespace }}
 spec:
   ports:
   - port: 3306
@@ -308,6 +315,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ galera_cluster_name }}-galera-node3
+  namespace: {{ galera_cluster_namespace }}
 spec:
   ports:
   - port: 3306
@@ -338,6 +346,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ galera_cluster_name }}-galera-node4
+  namespace: {{ galera_cluster_namespace }}
 spec:
   ports:
   - port: 3306
@@ -368,6 +377,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ galera_cluster_name }}-galera-node5
+  namespace: {{ galera_cluster_namespace }}
 spec:
   ports:
   - port: 3306

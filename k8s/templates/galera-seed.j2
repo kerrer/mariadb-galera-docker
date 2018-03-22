@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: ReplicaSet
 metadata:
   name: {{ galera_cluster_name }}-galera-seed
+  namespace: {{ galera_cluster_namespace }}
   labels:
     app: {{ galera_cluster_name }}-galera-seed
 spec:
@@ -57,6 +58,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ galera_cluster_name }}-galera-seed
+  namespace: {{ galera_cluster_namespace }}
 spec:
   ports:
   - port: 3306

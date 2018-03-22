@@ -45,6 +45,17 @@ case "$1" in
 		/usr/local/bin/percona-backup.sh
 		;;
 	restore)
+		if [ -z $SOURCE_BACKUP ]; then
+			export SOURCE_BACKUP=latest		
+		else 
+			export SOURCE_BACKUP=$SOURCE_BACKUP
+		fi
+		if [ -z $SOURCE_INCREMENT ]; then
+			export SOURCE_INCREMENT=latest		
+		else 
+			export SOURCE_INCREMENT=$SOURCE_INCREMENT
+		fi
+	
 		echo "Starting ad-hoc restore to galera cluster seed..."
     /usr/local/bin/percona-restore.sh
 		;;

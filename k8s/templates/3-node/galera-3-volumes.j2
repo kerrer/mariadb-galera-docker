@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: {{ galera_cluster_name }}-galera-seed-volume
+  namespace: {{ galera_cluster_namespace }}
   labels:
     volume: {{ galera_cluster_name }}-galera-seed-volume
 spec:
@@ -20,6 +21,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ galera_cluster_name }}-galera-seed-volume-claim
+  namespace: {{ galera_cluster_namespace }}
 spec:
   resources:
     requests:
@@ -34,6 +36,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: {{ galera_cluster_name }}-galera-node1-volume
+  namespace: {{ galera_cluster_namespace }}
   labels:
     volume: {{ galera_cluster_name }}-galera-node1-volume
 spec:
@@ -52,6 +55,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ galera_cluster_name }}-galera-node1-volume-claim
+  namespace: {{ galera_cluster_namespace }}
 spec:
   resources:
     requests:
@@ -66,6 +70,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: {{ galera_cluster_name }}-galera-node2-volume
+  namespace: {{ galera_cluster_namespace }}
   labels:
     volume: {{ galera_cluster_name }}-galera-node2-volume
 spec:
@@ -84,6 +89,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ galera_cluster_name }}-galera-node2-volume-claim
+  namespace: {{ galera_cluster_namespace }}
 spec:
   resources:
     requests:
@@ -98,6 +104,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: {{ galera_cluster_name }}-galera-node3-volume
+  namespace: {{ galera_cluster_namespace }}
   labels:
     volume: {{ galera_cluster_name }}-galera-node3-volume
 spec:
@@ -116,6 +123,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ galera_cluster_name }}-galera-node3-volume-claim
+  namespace: {{ galera_cluster_namespace }}
 spec:
   resources:
     requests:
@@ -130,6 +138,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: {{ galera_cluster_name }}-galera-backup-volume
+  namespace: {{ galera_cluster_namespace }}
   labels:
     volume: {{ galera_cluster_name }}-galera-backup-volume
 spec:
@@ -145,6 +154,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ galera_cluster_name }}-galera-backup-volume-claim
+  namespace: {{ galera_cluster_namespace }}
 spec:
   resources:
     requests:
@@ -159,6 +169,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: {{ galera_cluster_name }}-galera-backup-temp-volume
+  namespace: {{ galera_cluster_namespace }}
   labels:
     volume: {{ galera_cluster_name }}-galera-backup-temp-volume
 spec:
@@ -174,6 +185,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ galera_cluster_name }}-galera-backup-temp-volume-claim
+  namespace: {{ galera_cluster_namespace }}
 spec:
   resources:
     requests:

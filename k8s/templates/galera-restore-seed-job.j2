@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ galera_cluster_name }}-galera-restore-job
+  namespace: {{ galera_cluster_namespace }}
 spec:
   template:
     spec:

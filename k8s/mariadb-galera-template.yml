@@ -35,6 +35,7 @@
     become: false
     run_once: true
     ignore_errors: true
+    when: 'galera_cluster_node4_iscsi_targetportal is defined'
 
   - name: Generate the 3-Node iSCSI based galera volumes manifest
     local_action:
@@ -53,6 +54,7 @@
       mode: 0766
     run_once: true
     become: false
+    when: 'galera_cluster_node4_iscsi_targetportal is defined'
 
   - name: Generate the galera 3-nodes manifest
     local_action:
@@ -71,6 +73,7 @@
       mode: 0766
     run_once: true
     become: false
+    when: 'galera_cluster_node4_iscsi_targetportal is defined'
 
   - name: Generate the galera 3-nodes manifest with backup agent
     local_action:
@@ -89,6 +92,7 @@
       mode: 0766
     run_once: true
     become: false
+    when: 'galera_cluster_node4_iscsi_targetportal is defined'
 
   - name: Generate the 3-nodes galera haproxy manifest
     local_action:
@@ -107,6 +111,7 @@
       mode: 0766
     run_once: true
     become: false
+    when: 'galera_cluster_node4_iscsi_targetportal is defined'
 
   - name: Generate the 3-node galera seed manifest
     local_action:
@@ -125,6 +130,7 @@
       mode: 0766
     run_once: true
     become: false
+    when: 'galera_cluster_node4_iscsi_targetportal is defined'
 
   - name: Generate the 3-node galera external access manifest
     local_action:
@@ -143,7 +149,8 @@
       mode: 0766
     run_once: true
     become: false
-    
+    when: 'galera_cluster_node4_iscsi_targetportal is defined'
+
   - name: Generate the restore to seed job manifest
     local_action:
       module: template

@@ -25,6 +25,15 @@ if [ ! -d $SOURCE_BACKUP_FOLDER/base ]; then
 	exit 1
 fi 
 
+if [ "$SOURCE_INCREMENT" != "latest" ]; then
+	export SOURCE_INCREMENT_FOLDER=$SOURCE_BACKUP_FOLDER/$SOURCE_INCREMENT
+	if [ ! -d $SOURCE_INCREMENT_FOLDER ]; then
+		echo "** SOURCE_INCREMENT_FOLDER does not exist!"
+		echo "SOURCE_INCREMENT_FOLDER: ${SOURCE_INCREMENT_FOLDER}"
+		exit 1
+	fi 
+fi
+
 export TEMP_WORKING_FOLDER=/temp 
 if [ ! -d $TEMP_WORKING_FOLDER ]; then
 	echo "** TEMP_WORKING_FOLDER does not exist!"
@@ -88,7 +97,11 @@ else
 	echo "---"
 	xtrabackup --prepare --apply-log-only --target-dir=$TEMP_WORKING_BACKUP/base
 
-	LAST_INC_BACKUP=$(ls -t ${TEMP_WORKING_BACKUP} | grep inc_ | head -1) 
+	if [ "$SOURCE_INCREMENT" != "latest" ]; then
+		LAST_INC_BACKUP=$SOURCE_INCREMENT 
+	else
+		LAST_INC_BACKUP=$(ls -t ${TEMP_WORKING_BACKUP} | grep inc_ | head -1) 
+	fi
 	echo "LAST_INC_BACKUP=${LAST_INC_BACKUP}"
 	
   for inc_folder in `ls -t ${TEMP_WORKING_BACKUP} | grep inc_ | sort`; do

@@ -1,5 +1,5 @@
-clusters/*
+clusters/**
 !clusters/README.md
-!clusters/tier1
+!clusters/tier1-example
 *.retry
 

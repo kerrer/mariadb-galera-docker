@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: {{ galera_cluster_name }}-galera-external-access
-  namespace: default
+  namespace: {{ galera_cluster_namespace }}
 spec:
   ports:
     - name: mysql
