@@ -1,13 +1,18 @@
 MariaDB Galera Docker on Kubernetes
 ===================================
 
-Still early in the development of the k8s version.
+> Make sure to clear out the iSCSI volumes between cluster creations.  If there is existing galera data on the volumes the clusters will try to recover instead of forming new nodes. See [Purge Seed and Node Data Volumes](#purge-seed-and-node-data-volumes) on how to do this.
 
-> Make sure to clear out the iSCSI volumes between cluster creations.  If there is existing galera data on the volumes the clusters will try to recover instead of forming new nodes.
-
-> This has been tested and developed on the __Tectonic CoreOS__ cluster from [cluster-builder](https://github.com/ids/cluster-builder).
+> This has been tested and developed on the __Tectonic CoreOS__ cluster from [cluster-builder](https://github.com/ids/cluster-builder).  It requires you have a working [kubectl configuration](https://coreos.com/tectonic/docs/latest/tutorials/aws/first-app.html#configuring-credentials) already in place.
 
 This configuration uses iSCSI direct access for the persistent data volumes.  It requires access to an iSCSI target that contains at least 4 luns: 1 for the initial seed volume which will be discarded, and 3 or 5 nodes for the permanent node volumes.
+
+With the __backup agent__ enabled, it also requires two __NFS__ volumes:
+
+1. __NFS Backups__ a long term NFS storage volume for the full and incremental backups
+2. __Temp__ a scratch space in which to restore the incremental backups to a full working data directory
+
+[AWS Storage Gateway](https://aws.amazon.com/storagegateway/) is a great way to deliver iSCSI and NFS storage into an ESXi environment with auto-replication to AWS storage services and management through the AWS console.  It's pretty awesome.
 
 ## Ansible Template Approach
 
@@ -33,10 +38,15 @@ There is also two variants of deployment:
 * Without Backup Agent
 * With Integrated NFS Backup Agent
 
-
 ### 3 or 5 Node Galera
 
 > In the examples below simply replace 3 with 5 in the manifest names if you wish to deploy a 5 node cluster.
+
+#### Step 0 - Namespace
+
+If the namespace is other then __default__ and does not already exist:
+
+    kubectl apply -f galera-3-namespace.yml
 
 #### Step 1 - Setup Persistent Volumes
 
@@ -64,7 +74,9 @@ Or, with a backup agent:
 
 The nodes should come up fairly quickly.  Once they are all up and ready, start the HAProxy:
 
-#### Step 4 - Start the DB HAProxy
+#### Step 4 - Start the Database HAProxy
+
+This load balances all communication with the database equally over the nodes in the galera cluster:
 
     kubectl apply -f galera-3-haproxy.yml
 
@@ -74,7 +86,7 @@ Delete the seed node:
 
     kubectl delete -f galera-3-seed.yml
 
-Which should leave a 3 or 5 node cluster fronted by the HAProxy.
+Which should leave a __3__ or __5__ node cluster fronted by HAProxy.
 
 `kubectl exec` into any of the nodes and verify the cluster:
 
@@ -169,6 +181,19 @@ __tier1-galera-seed-volume__ should point to the target seed volume that will be
 
 > The __idstudios/mariadb-galera-backup:latest__ is not tied to the original cluster for __restore__, and only requires a copy of the backups.  It can even be used against non-galera MariaDB and MySQL database backups.
 
+#### Purge Seed and Node Data Volumes
+
+The current implementation uses native Kubernetes iSCSI integration for the underlying data volumes, and NFS for the backup and scratch storage.
+
+The iSCSI volumes are not easily accessed directly, so the template scripts produce a utility job for wiping these underlying iSCSI data volumes clean - which can be handy in development.
+
+> Please use with caution
+
+    kubectl apply -f galera-3-purge-volumes-job.yml
+
+> This requires that the volumes have already been created with:
+
+    kubectl apply -f galera-3-volumes.yml
 
 ## Ansible Galera Configuration
 
